@@ -1,0 +1,65 @@
+[ec2-user@ip-10-2-11-173 ~]$ yum install mysql
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+You need to be root to perform this command.
+[ec2-user@ip-10-2-11-173 ~]$ sudo yum install mysql
+Loaded plugins: extras_suggestions, langpacks, priorities, update-motd
+Resolving Dependencies
+--> Running transaction check
+---> Package mariadb.x86_64 1:5.5.68-1.amzn2 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+==============================================================================================================================================================================================================================================================================================================================
+ Package                                                                    Arch                                                                      Version                                                                             Repository                                                                     Size
+==============================================================================================================================================================================================================================================================================================================================
+Installing:
+ mariadb                                                                    x86_64                                                                    1:5.5.68-1.amzn2                                                                    amzn2-core                                                                    8.8 M
+
+Transaction Summary
+==============================================================================================================================================================================================================================================================================================================================
+Install  1 Package
+
+Total download size: 8.8 M
+Installed size: 49 M
+Is this ok [y/d/N]: y
+Downloading packages:
+mariadb-5.5.68-1.amzn2.x86_64.rpm                                                                                                                                                                                                                                                                      | 8.8 MB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                                                                                                                                                                                            1/1 
+  Verifying  : 1:mariadb-5.5.68-1.amzn2.x86_64                                                                                                                                                                                                                                                                            1/1 
+
+Installed:
+  mariadb.x86_64 1:5.5.68-1.amzn2                                                                                                                                                                                                                                                                                             
+
+Complete!
+[ec2-user@ip-10-2-11-173 ~]$ mysql -h udacityreadreplica.crs7smom3yyq.us-west-1.rds.amazonaws.com -u admin -p
+Enter password: 
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MySQL connection id is 63
+Server version: 8.0.28 Source distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MySQL [(none)]> use testDB;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+MySQL [testDB]> INSERT INTO Persons VALUES (2, "Phadtare", “Rajkuwar”, "1, Main Road", "Yuba City");
+ERROR 1290 (HY000): The MySQL server is running with the --read-only option so it cannot execute this statement
+MySQL [testDB]> select * from Persons;
++----------+----------+-----------+--------------+-----------+
+| PersonID | LastName | FirstName | Address      | City      |
++----------+----------+-----------+--------------+-----------+
+|        1 | Phadtare | Rahul     | 1, Main Road | Yuba City |
++----------+----------+-----------+--------------+-----------+
+1 row in set (0.01 sec)
+
+MySQL [testDB]> 
+
